@@ -1,4 +1,4 @@
-This is a chef expect provider
+Chef cookbook for managing beanstalk queueing engine 
 
 ### Supported Platforms
 - CentOS 6.3
