@@ -1,28 +1,23 @@
 #!/usr/bin/env ruby
 
-require 'berkshelf/vagrant'
+# Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
 
-Vagrant::Config.run do |config|
+  # ubuntu
+  config.vm.box     = 'precise'
+  config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
-  images = {
-    precise:  'http://files.vagrantup.com/precise64.box',
-    cent6:    'https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box'
-  }
+  # centos
+  # config.vm.box     = 'pagoda_cent6_minimal'
+  # config.vm.box_url = 'https://s3.amazonaws.com/vagrant.pagodabox.com/boxes/centos-6.4-x86_64-minimal.box'
 
-  images.each do |image, url|
-    config.vm.define image do |box|
-
-      box.vm.box = image.to_s
-      box.vm.box_url = url
-
-      box.ssh.forward_agent = true
-      box.berkshelf.berksfile_path = File.expand_path("../Berksfile.dev", __FILE__)
-
-      box.vm.provision :chef_solo do |chef|
-        chef.add_recipe 'beanstalk'
-      end
-
-    end
+  config.vm.provider "virtualbox" do |v|
+    v.customize ["modifyvm", :id, "--cpus", "2", "--memory", "1024", "--cpuexecutioncap", "75"]
   end
 
+  config.ssh.forward_agent = true
+
+  config.vm.provision :chef_solo do |chef|
+    chef.add_recipe 'beanstalk'
+  end
 end

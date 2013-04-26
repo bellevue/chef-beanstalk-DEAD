@@ -15,4 +15,4 @@ if not supported_platforms.include? node[:platform]
 end
 
 # 1- Install
-include_recipe "beanstalk::#{node[:platform]}"
+include_recipe "beanstalk::#{node['beanstalk']['install_type']}"
