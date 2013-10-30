@@ -16,10 +16,9 @@ if node['platform'] == 'ubuntu'
         mode 0644
         owner "root"
         group "root"
-        notifies :restart, resources(:service => service_name)
     end
 end
 
 service service_name do
-    action :start
+    action :restart
 end
