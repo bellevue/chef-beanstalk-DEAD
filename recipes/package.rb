@@ -11,7 +11,13 @@ end
 package package_name
 
 if node['platform'] == 'ubuntu'
-    cookbook_file '/etc/default/beanstalkd'
+    template "/etc/default/beanstalkd" do
+        source "beanstalkd.erb"
+        mode 0644
+        owner "root"
+        group "root"
+        notifies :restart, resources(:service => service_name)
+    end
 end
 
 service service_name do

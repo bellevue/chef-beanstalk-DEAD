@@ -1,1 +1,5 @@
-default['beanstalk']['install_type'] = 'package'
+default[:beanstalk][:listen][:host] = '0.0.0.0'
+default[:beanstalk][:listen][:port] = '11300'
+default[:beanstalk][:install_type]  = 'package'
+default[:beanstalk][:persistent]    = 'no'
+default[:beanstalk][:data_dir]      = '/var/lib/beanstalkd'
