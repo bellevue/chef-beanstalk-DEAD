@@ -1,4 +1,4 @@
-file_name       = "#{node[:beanstalk][:github_tag]}.tar.gz"
+file_name       = "v#{node[:beanstalk][:github_version]}.tar.gz"
 remote_location = "https://github.com/kr/beanstalkd/archive/"
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{file_name}" do
@@ -12,7 +12,7 @@ bash "install_program" do
     cwd "#{Chef::Config[:file_cache_path]}/"
     code <<-EOH
       tar -zxf #{file_name}
-      (cd #{node[:beanstalk][:github_tag]}/ && make && make install)
+      (cd beanstalkd-#{node[:beanstalk][:github_version]}/ && make && make install)
     EOH
     action :nothing
 end
