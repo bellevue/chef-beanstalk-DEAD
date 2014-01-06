@@ -12,8 +12,10 @@ case node['platform']
     when 'centos'
         include_recipe 'yum::epel'
         package_name = 'beanstalkd'
+        service_name = 'beanstalkd'
     when 'ubuntu'
         package_name = 'beanstalkd'
+        service_name = 'beanstalkd'
 end
 
 if node['platform'] == 'ubuntu'
